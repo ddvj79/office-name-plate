@@ -44,7 +44,8 @@ public class CalendarClient
     {
         boolean success = false;
         // fetch next batch of events and select the first only
-        ListenableFuture<java.util.List<Event>> events = client.getMe().getCalendarView().addParameter("startdatetime",dateStart).addParameter("enddatetime",dateEnd).read();
+        //ListenableFuture<java.util.List<Event>> events = client.getMe().getCalendarView().addParameter("startdatetime",dateStart).addParameter("enddatetime",dateEnd).read();
+        ListenableFuture<List<Event>> events = client.getMe().getCalendar().getEvents().read();
         Futures.addCallback(events, new FutureCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> result) {
@@ -53,11 +54,14 @@ public class CalendarClient
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Throwable t)
+            {
                 userMeetingData = null;
             }
         });
         return userMeetingData;
     }
+
+
 
 }
