@@ -29,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
 
         accessToken = intent.getStringExtra("ACCESS_TOKEN");
 
+        Intent backService =
+
         Meeting[] meetings = new Meeting[] {
                 new Meeting(new Date(114, 11, 9, 11, 0), new Date(2014, 12, 9, 12, 0), "Scrum meeting", "34/3806"),
                 new Meeting(new Date(114, 11, 9, 13, 0), new Date(2014, 12, 9, 14, 0), "Triage", "34/3561"),
