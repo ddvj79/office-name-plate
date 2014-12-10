@@ -60,7 +60,7 @@ public class AuthenticateActivity extends ActionBarActivity {
 
     private void startAuthentication()
     {
-        mAuthContext.acquireToken(this, RESOURCE, CLIENT_ID, REDIRECT_URI, PromptBehavior.Always,
+        mAuthContext.acquireToken(this, RESOURCE, CLIENT_ID, REDIRECT_URI, PromptBehavior.Auto,
                 new AuthenticationCallback<AuthenticationResult>() {
                     @Override
                     public void onSuccess(AuthenticationResult authenticationResult) {
