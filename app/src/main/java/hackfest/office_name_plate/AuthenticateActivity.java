@@ -65,7 +65,7 @@ public class AuthenticateActivity extends ActionBarActivity {
                     @Override
 
                     public void onSuccess(AuthenticationResult authenticationResult) {
-                        
+
                         handleSuccess(authenticationResult);
                     }
 
