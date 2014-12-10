@@ -9,12 +9,30 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private String accessToken;
+    private CalendarClient calenderClient;
+
+    Date currentStartTime()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        return calendar.getTime();
+    }
+
+    Date currentEndTime()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY,3);
+        return calendar.getTime();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +45,11 @@ public class MainActivity extends ActionBarActivity {
         userNameView.setText(name);
 
         accessToken = intent.getStringExtra("ACCESS_TOKEN");
+        calenderClient = new CalendarClient(accessToken);
+        Date startTime = currentStartTime();
+        Date endTime = currentEndTime();
 
+        calenderClient.RetrieveMeetingData(startTime,endTime);
         Meeting[] meetings = new Meeting[] {
                 new Meeting(new Date(114, 11, 9, 11, 0), new Date(2014, 12, 9, 12, 0), "Scrum meeting", "34/3806"),
                 new Meeting(new Date(114, 11, 9, 13, 0), new Date(2014, 12, 9, 14, 0), "Triage", "34/3561"),
