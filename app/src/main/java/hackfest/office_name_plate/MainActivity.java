@@ -1,21 +1,32 @@
 package hackfest.office_name_plate;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Date;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private String accessToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("USER_NAME");
+        TextView userNameView = (TextView) findViewById(R.id.userName);
+        userNameView.setText(name);
+
+        accessToken = intent.getStringExtra("ACCESS_TOKEN");
 
         Meeting[] meetings = new Meeting[] {
                 new Meeting(new Date(114, 11, 9, 11, 0), new Date(2014, 12, 9, 12, 0), "Scrum meeting", "34/3806"),
