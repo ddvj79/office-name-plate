@@ -60,4 +60,26 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static class Meetings
+    {
+        Date startTime;
+        Date endTime;
+        String location;
+
+        Date GetStartTime()
+        {
+            return startTime;
+        }
+
+        Date GetEndTime()
+        {
+            return endTime;
+        }
+
+        String GetLocation()
+        {
+            return location;
+        }
+    }
 }
