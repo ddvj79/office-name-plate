@@ -43,6 +43,7 @@ public class AuthenticateActivity extends ActionBarActivity {
         try
         {
             mAuthContext = new AuthenticationContext(context, AUTHORITY, VALIDATE_AUTHORITY);
+            startAuthentication();
 
         }
         catch(NoSuchAlgorithmException e) {
@@ -51,19 +52,20 @@ public class AuthenticateActivity extends ActionBarActivity {
         catch(NoSuchPaddingException e) {
             throw new RuntimeException("Error creating authentication context", e);
         }
+
+
     }
 
-    public void get_access_tokenOnClick(View v)
-    {
-        startAuthentication();
-    }
 
     private void startAuthentication()
     {
+
         mAuthContext.acquireToken(this, RESOURCE, CLIENT_ID, REDIRECT_URI, PromptBehavior.Auto,
                 new AuthenticationCallback<AuthenticationResult>() {
                     @Override
+
                     public void onSuccess(AuthenticationResult authenticationResult) {
+                        
                         handleSuccess(authenticationResult);
                     }
 
