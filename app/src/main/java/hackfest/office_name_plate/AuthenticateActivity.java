@@ -65,11 +65,7 @@ public class AuthenticateActivity extends ActionBarActivity {
                     @Override
 
                     public void onSuccess(AuthenticationResult authenticationResult) {
-                        try {
-                            Thread.sleep(700);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        
                         handleSuccess(authenticationResult);
                     }
 
