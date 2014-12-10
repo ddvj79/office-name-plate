@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">office-name-plate</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Click here to authenticate!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_authenticate">AuthenticateActivity</string>
 
 </resources>
