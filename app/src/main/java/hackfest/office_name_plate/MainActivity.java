@@ -16,6 +16,7 @@ public class MainActivity extends ActionBarActivity {
 
     private String accessToken;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
