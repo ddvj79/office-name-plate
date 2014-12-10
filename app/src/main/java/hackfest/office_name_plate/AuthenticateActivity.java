@@ -86,10 +86,17 @@ public class AuthenticateActivity extends ActionBarActivity {
                 authenticationResult.getRefreshToken().substring(0,10)
 
         );
-        new AlertDialog.Builder(this).setTitle("Success").setMessage(message).setPositiveButton("OK", null).show();
+        //new AlertDialog.Builder(this).setTitle("Success").setMessage(message).setPositiveButton("OK", null).show();
 
         ACCESS_TOKEN = authenticationResult.getAccessToken();
         REFRESH_TOKEN = authenticationResult.getRefreshToken();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("ACCESS_TOKEN", ACCESS_TOKEN);
+        intent.putExtra("USER_NAME", authenticationResult.getUserInfo().getGivenName());
+
+        startActivity(intent);
+
     }
 
     private void handleError(String message)
