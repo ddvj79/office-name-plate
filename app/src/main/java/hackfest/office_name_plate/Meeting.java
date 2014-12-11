@@ -25,7 +25,7 @@ import javax.crypto.NoSuchPaddingException;
 /**
  * Created by dmcallis on 12/10/2014.
  */
-public class Meeting {
+public class Meeting implements Comparable<Meeting>{
 
     private Date startDate;
     private Date endDate;
@@ -38,6 +38,31 @@ public class Meeting {
         endDate = end;
         this.subject = subject;
         this.location = location;
+    }
+
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    public String getSubject()
+    {
+        return subject;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    @Override
+    public int compareTo(Meeting o) {
+        return getStartDate().compareTo(o.getStartDate());
     }
 
     @Override

@@ -17,7 +17,7 @@
         </activity>
         <activity
             android:name=".AuthenticateActivity"
-            android:label="@string/title_activity_authenticate"
+            android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name=".StartActivity"
-            android:label="@string/title_activity_start"
+            android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
 
