@@ -40,6 +40,26 @@ public class Meeting {
         this.location = location;
     }
 
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    public String getSubject()
+    {
+        return subject;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
     @Override
     public String toString() {
         Format formatter = new SimpleDateFormat("h:mm a");
