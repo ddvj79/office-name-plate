@@ -103,7 +103,7 @@ public class CalendarClient
         Calendar c = Calendar.getInstance();
         Date currentTime = c.getTime();
         String nextFreeTime = "";
-        if (currentTime.compareTo(meetings[0].getStartDate()) < 0)
+        if (meetings == null || meetings.length == 0 || currentTime.compareTo(meetings[0].getStartDate()) < 0)
         {
             nextFreeTime = "Now";
         }
