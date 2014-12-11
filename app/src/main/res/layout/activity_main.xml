@@ -43,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Next free at:  5:00 pm"
         android:id="@+id/nextFree"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />

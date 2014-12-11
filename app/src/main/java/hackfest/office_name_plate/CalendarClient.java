@@ -60,12 +60,17 @@ public class CalendarClient
 
                 final Meeting[] meetingsArray = (Meeting[])meetings.toArray(new Meeting[meetings.size()]);
 
+                final String nextFreeTime = GetNextFreeTime(meetingsArray);
+
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         ListView meetingView = (ListView) activity.findViewById(R.id.meetings);
                         ArrayAdapter<Meeting> adapter = new ArrayAdapter<Meeting>(activity, android.R.layout.simple_list_item_1, meetingsArray);
                         meetingView.setAdapter(adapter);
+
+                        TextView nextFreeTimeView = (TextView) activity.findViewById(R.id.nextFree);
+                        nextFreeTimeView.setText("Next Free at:  " + nextFreeTime);
                     }
                 });
 
@@ -81,6 +86,39 @@ public class CalendarClient
         });
 
         return userMeetingData;
+    }
+
+    String GetNextFreeTime(Meeting[] meetings)
+    {
+        Calendar c = Calendar.getInstance();
+        Date currentTime = c.getTime();
+        String nextFreeTime = "";
+        if (currentTime.compareTo(meetings[0].getStartDate()) < 0)
+        {
+            nextFreeTime = "Now";
+        }
+        else
+        {
+            Date previousMeetingDateEnd = currentTime;
+            for (Meeting meeting : meetings)
+            {
+                if (previousMeetingDateEnd.compareTo(meeting.getStartDate()) < 0)
+                {
+                    nextFreeTime = previousMeetingDateEnd.toString();
+                    break;
+                }
+                if (previousMeetingDateEnd.compareTo(meeting.getEndDate()) < 0)
+                {
+                    previousMeetingDateEnd = meeting.getEndDate();
+                }
+            }
+            if (nextFreeTime == "")
+            {
+                nextFreeTime = previousMeetingDateEnd.toString();
+            }
+        }
+
+        return nextFreeTime;
     }
 
 
