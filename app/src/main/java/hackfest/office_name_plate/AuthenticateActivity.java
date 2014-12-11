@@ -75,7 +75,7 @@ public class AuthenticateActivity extends ActionBarActivity {
                     public void onSuccess(AuthenticationResult authenticationResult) {
 
                         handleSuccess(authenticationResult);
-                        startDirectoryAuthentication();
+                        //startDirectoryAuthentication();
                     }
 
                     @Override
@@ -125,6 +125,10 @@ public class AuthenticateActivity extends ActionBarActivity {
         ACCESS_TOKEN = authenticationResult.getAccessToken();
         REFRESH_TOKEN = authenticationResult.getRefreshToken();
 
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("ACCESS_TOKEN", ACCESS_TOKEN);
+        intent.putExtra("USER NAME", authenticationResult.getUserInfo().getGivenName());
+        startActivity(intent);
 
     }
 
@@ -134,14 +138,9 @@ public class AuthenticateActivity extends ActionBarActivity {
         REFRESH_TOKEN = authenticationResult.getRefreshToken();
 
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("ACCESS_TOKEN", ACCESS_TOKEN);
-        intent.putExtra("USER_NAME", authenticationResult.getUserInfo().getGivenName());
-        intent.putExtra("DIR_ACCESS_TOKEN", DIRECTORY_ACCESS_TOKEN);
-        intent.putExtra("USER_OBJECT_ID", authenticationResult.getUserInfo().getUserId());
-        intent.putExtra("TENANT_ID", authenticationResult.getTenantId());
 
-        startActivity(intent);
+
+
 
     }
 

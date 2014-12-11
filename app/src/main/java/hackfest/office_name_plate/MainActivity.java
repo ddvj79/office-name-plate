@@ -18,6 +18,11 @@ public class MainActivity extends ActionBarActivity {
     private String accessToken;
     private CalendarClient calenderClient;
 
+    private UserProfileClient userProfileClient;
+    private String userID;
+    private String tenantID;
+    private String dirAccessToken;
+
     Date currentStartTime()
     {
         Calendar calendar = Calendar.getInstance();
@@ -50,6 +55,13 @@ public class MainActivity extends ActionBarActivity {
         Date endTime = currentEndTime();
 
         calenderClient.RetrieveMeetingData(startTime,endTime, this);
+
+        /*//Getting user profile information
+        dirAccessToken = intent.getStringExtra("DIR_ACCESS_TOKEN");
+        userID = intent.getStringExtra("USER_OBJECT_ID");
+        tenantID = intent.getStringExtra("TENANT_ID");
+        userProfileClient = new UserProfileClient(dirAccessToken,userID,tenantID);
+        userProfileClient.RetrieveUserProfile(this);*/
 
     }
 
