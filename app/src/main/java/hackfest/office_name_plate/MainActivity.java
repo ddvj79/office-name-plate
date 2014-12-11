@@ -1,6 +1,11 @@
 package hackfest.office_name_plate;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +22,9 @@ public class MainActivity extends ActionBarActivity {
 
     private String accessToken;
     private CalendarClient calenderClient;
+
+    private AlarmManager alarmManager;
+    private PendingIntent refreshIntent;
 
     Date currentStartTime()
     {
@@ -46,10 +54,24 @@ public class MainActivity extends ActionBarActivity {
 
         accessToken = intent.getStringExtra("ACCESS_TOKEN");
         calenderClient = new CalendarClient(accessToken);
-        Date startTime = currentStartTime();
-        Date endTime = currentEndTime();
+        final Date startTime = currentStartTime();
+        final Date endTime = currentEndTime();
 
         calenderClient.RetrieveMeetingData(startTime,endTime, this);
+
+        alarmManager = (AlarmManager)this.getSystemService(ALARM_SERVICE);
+        final MainActivity mainActivity = this;
+
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override public void onReceive( Context context, Intent intent )
+            {
+                calenderClient.RetrieveMeetingData(startTime, endTime, mainActivity);
+            }
+        };
+        this.registerReceiver( receiver, new IntentFilter("refresh") );
+
+        PendingIntent refreshIntent = PendingIntent.getBroadcast( this, 0, new Intent("refresh"), 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, refreshIntent);
 
     }
 
