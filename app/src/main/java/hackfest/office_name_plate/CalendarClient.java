@@ -65,7 +65,7 @@ public class CalendarClient
                     Date boundary = c.getTime();
                     if( endTime.compareTo(currentTime) >=0 && startTime.compareTo(boundary) <=0  )
                     {
-                        Meeting meeting = new Meeting(e.getStart().getTime(), e.getEnd().getTime(), e.getSubject(), e.getLocation().getDisplayName());
+                        Meeting meeting = new Meeting(e.getStart().getTime(), e.getEnd().getTime(), e.getSubject(), e.getLocation().getDisplayName(), "red");
                         meetings.add(meeting);
                     }
                 }

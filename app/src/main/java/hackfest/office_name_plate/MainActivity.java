@@ -50,6 +50,9 @@ public class MainActivity extends ActionBarActivity {
         Date endTime = currentEndTime();
 
         calenderClient.RetrieveMeetingData(startTime,endTime, this);
+
+        //Intent serviceIntent = new Intent(this, OutlookBackGroundService.class);
+        //startService(serviceIntent);
     }
 
 
