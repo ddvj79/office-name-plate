@@ -59,6 +59,7 @@ public class CalendarClient
                     Meeting meeting = new Meeting(e.getStart().getTime(), e.getEnd().getTime(), e.getSubject(), e.getLocation().getDisplayName());
                     meetings.add(meeting);
                 }
+                Collections.sort(meetings);
 
                 final Meeting[] meetingsArray = (Meeting[])meetings.toArray(new Meeting[meetings.size()]);
 
