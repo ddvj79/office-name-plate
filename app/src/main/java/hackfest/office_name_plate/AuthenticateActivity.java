@@ -127,7 +127,7 @@ public class AuthenticateActivity extends ActionBarActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("ACCESS_TOKEN", ACCESS_TOKEN);
-        intent.putExtra("USER NAME", authenticationResult.getUserInfo().getGivenName());
+        intent.putExtra("USER_NAME", authenticationResult.getUserInfo().getGivenName());
         startActivity(intent);
 
     }
