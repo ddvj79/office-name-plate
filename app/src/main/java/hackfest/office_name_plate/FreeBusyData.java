@@ -11,14 +11,14 @@ import java.util.Date;
 public class FreeBusyData
 {
     Date nextFree;
-    ArrayList<MeetingData> meetingsList;
+    ArrayList<Meeting> meetingsList;
 
     FreeBusyData()
     {
-        meetingsList = new ArrayList<MeetingData>();
+        meetingsList = new ArrayList<Meeting>();
     }
 
-    ArrayList<MeetingData> GetCurrentMeetings()
+    ArrayList<Meeting> GetCurrentMeetings()
     {
         return meetingsList;
     }

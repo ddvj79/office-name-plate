@@ -32,8 +32,6 @@ public class CalendarClient
 {
     public static String ENDPOINT_ID = "https://outlook.office365.com/api/v1.0";
 
-    OutlookClient calendarClient;
-    MeetingData userMeetingData;
     String authToken;
     DefaultDependencyResolver dependencyResolver;
     OutlookClient client;
@@ -45,7 +43,7 @@ public class CalendarClient
         client = new OutlookClient(ENDPOINT_ID, dependencyResolver);
     }
 
-    MeetingData RetrieveMeetingData(Date dateStart, Date dateEnd, final MainActivity activity)
+    void RetrieveMeetingData(Date dateStart, Date dateEnd, final MainActivity activity)
     {
         boolean success = false;
         // fetch next batch of events and select the first only
@@ -94,11 +92,9 @@ public class CalendarClient
             @Override
             public void onFailure(Throwable t)
             {
-                userMeetingData = null;
+
             }
         });
-
-        return userMeetingData;
     }
 
     String GetNextFreeTime(Meeting[] meetings)
