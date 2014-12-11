@@ -33,6 +33,13 @@ public class AuthenticateActivity extends ActionBarActivity {
     public static String ACCESS_TOKEN;
     public static String REFRESH_TOKEN;
 
+
+    //DIRECTORY ACCESS TOKEN CONSTANTS
+    public static final String DIR_RESOURCE = "https://graph.windows.net";
+    public static String DIRECTORY_ACCESS_TOKEN;
+    public static String UserObjectID;
+    public static String TenantID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +51,7 @@ public class AuthenticateActivity extends ActionBarActivity {
         {
             mAuthContext = new AuthenticationContext(context, AUTHORITY, VALIDATE_AUTHORITY);
             startAuthentication();
+
 
         }
         catch(NoSuchAlgorithmException e) {
@@ -67,6 +75,29 @@ public class AuthenticateActivity extends ActionBarActivity {
                     public void onSuccess(AuthenticationResult authenticationResult) {
 
                         handleSuccess(authenticationResult);
+                        startDirectoryAuthentication();
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        handleError(e.toString());
+                    }
+                }
+
+
+        );
+    }
+
+    private void startDirectoryAuthentication()
+    {
+
+        mAuthContext.acquireToken(this, DIR_RESOURCE, CLIENT_ID, REDIRECT_URI, PromptBehavior.Auto,
+                new AuthenticationCallback<AuthenticationResult>() {
+                    @Override
+
+                    public void onSuccess(AuthenticationResult authenticationResult) {
+
+                        handleDirectorySuccess(authenticationResult);
                     }
 
                     @Override
@@ -81,11 +112,12 @@ public class AuthenticateActivity extends ActionBarActivity {
 
     private void handleSuccess(AuthenticationResult authenticationResult)
     {
-        String message = String.format("User Name: %1$s\nExpires on %2$s\nAccess Token:%3$s\nRefresh Token:%4$s....",
-                authenticationResult.getUserInfo().getGivenName().toString(),
+        String message = String.format("User Name: %1$s\nExpires on %2$s\nAccess Token:%3$s\nRefresh Token:%4$s\nTenantID:%5$s....",
+                authenticationResult.getUserInfo().getUserId(),
                 authenticationResult.getExpiresOn().toString(),
                 authenticationResult.getAccessToken().substring(0,10),
-                authenticationResult.getRefreshToken().substring(0,10)
+                authenticationResult.getRefreshToken().substring(0,10),
+                authenticationResult.getTenantId()
 
         );
         //new AlertDialog.Builder(this).setTitle("Success").setMessage(message).setPositiveButton("OK", null).show();
@@ -93,9 +125,21 @@ public class AuthenticateActivity extends ActionBarActivity {
         ACCESS_TOKEN = authenticationResult.getAccessToken();
         REFRESH_TOKEN = authenticationResult.getRefreshToken();
 
+
+    }
+
+    private void handleDirectorySuccess(AuthenticationResult authenticationResult)
+    {
+        DIRECTORY_ACCESS_TOKEN = authenticationResult.getAccessToken();
+        REFRESH_TOKEN = authenticationResult.getRefreshToken();
+
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("ACCESS_TOKEN", ACCESS_TOKEN);
         intent.putExtra("USER_NAME", authenticationResult.getUserInfo().getGivenName());
+        intent.putExtra("DIR_ACCESS_TOKEN", DIRECTORY_ACCESS_TOKEN);
+        intent.putExtra("USER_OBJECT_ID", authenticationResult.getUserInfo().getUserId());
+        intent.putExtra("TENANT_ID", authenticationResult.getTenantId());
 
         startActivity(intent);
 
