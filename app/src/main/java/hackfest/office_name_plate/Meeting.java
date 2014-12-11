@@ -31,13 +31,15 @@ public class Meeting implements Comparable<Meeting>{
     private Date endDate;
     private String subject;
     private String location;
+    private String category;
 
-    public Meeting (Date start, Date end, String subject, String location)
+    public Meeting (Date start, Date end, String subject, String location, String category)
     {
         startDate = start;
         endDate = end;
         this.subject = subject;
         this.location = location;
+        this.category = category;
     }
 
     public Date getStartDate()
