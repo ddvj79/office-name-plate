@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Collection;
 import java.util.List;
+import java.util.*;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -40,7 +43,7 @@ public class CalendarClient
         client = new OutlookClient(ENDPOINT_ID, dependencyResolver);
     }
 
-    MeetingData RetrieveMeetingData(Date dateStart, Date dateEnd)
+    MeetingData RetrieveMeetingData(Date dateStart, Date dateEnd, final MainActivity activity)
     {
         boolean success = false;
         // fetch next batch of events and select the first only
@@ -49,8 +52,25 @@ public class CalendarClient
         Futures.addCallback(events, new FutureCallback<List<Event>>() {
             @Override
             public void onSuccess(List<Event> result) {
-                userMeetingData = new MeetingData();
-                //fill this up
+                ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+                for (Event e : result) {
+                    Meeting meeting = new Meeting(e.getStart().getTime(), e.getEnd().getTime(), e.getSubject(), e.getLocation().getDisplayName());
+                    meetings.add(meeting);
+                }
+
+                final Meeting[] meetingsArray = (Meeting[])meetings.toArray(new Meeting[meetings.size()]);
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListView meetingView = (ListView) activity.findViewById(R.id.meetings);
+                        ArrayAdapter<Meeting> adapter = new ArrayAdapter<Meeting>(activity, android.R.layout.simple_list_item_1, meetingsArray);
+                        meetingView.setAdapter(adapter);
+                    }
+                });
+
+
+
             }
 
             @Override
@@ -59,6 +79,7 @@ public class CalendarClient
                 userMeetingData = null;
             }
         });
+
         return userMeetingData;
     }
 
