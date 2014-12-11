@@ -26,6 +26,11 @@ public class MainActivity extends ActionBarActivity {
     private AlarmManager alarmManager;
     private PendingIntent refreshIntent;
 
+    private UserProfileClient userProfileClient;
+    private String userID;
+    private String tenantID;
+    private String dirAccessToken;
+
     Date currentStartTime()
     {
         Calendar calendar = Calendar.getInstance();
@@ -72,6 +77,13 @@ public class MainActivity extends ActionBarActivity {
 
         PendingIntent refreshIntent = PendingIntent.getBroadcast( this, 0, new Intent("refresh"), 0);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, refreshIntent);
+
+        /*//Getting user profile information
+        dirAccessToken = intent.getStringExtra("DIR_ACCESS_TOKEN");
+        userID = intent.getStringExtra("USER_OBJECT_ID");
+        tenantID = intent.getStringExtra("TENANT_ID");
+        userProfileClient = new UserProfileClient(dirAccessToken,userID,tenantID);
+        userProfileClient.RetrieveUserProfile(this);*/
 
     }
 
