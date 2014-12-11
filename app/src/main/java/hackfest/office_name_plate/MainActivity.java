@@ -49,15 +49,15 @@ public class MainActivity extends ActionBarActivity {
         Date startTime = currentStartTime();
         Date endTime = currentEndTime();
 
-        calenderClient.RetrieveMeetingData(startTime,endTime);
+        calenderClient.RetrieveMeetingData(startTime,endTime, this);
         Meeting[] meetings = new Meeting[] {
                 new Meeting(new Date(114, 11, 9, 11, 0), new Date(2014, 12, 9, 12, 0), "Scrum meeting", "34/3806"),
                 new Meeting(new Date(114, 11, 9, 13, 0), new Date(2014, 12, 9, 14, 0), "Triage", "34/3561"),
                 new Meeting(new Date(114, 11, 9, 16, 0), new Date(2014, 12, 9, 17, 0), "Design review", "36/1108")};
 
         ListView listview = (ListView) findViewById(R.id.meetings);
-        ArrayAdapter<Meeting> adapter = new ArrayAdapter<Meeting>(this, android.R.layout.simple_list_item_1, meetings);
-        listview.setAdapter(adapter);
+        //ArrayAdapter<Meeting> adapter = new ArrayAdapter<Meeting>(this, android.R.layout.simple_list_item_1, meetings);
+        //listview.setAdapter(adapter);
     }
 
 
