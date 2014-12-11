@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Collection;
 import java.util.List;
@@ -90,6 +92,7 @@ public class CalendarClient
 
     String GetNextFreeTime(Meeting[] meetings)
     {
+        Format formatter = new SimpleDateFormat("h:mm a");
         Calendar c = Calendar.getInstance();
         Date currentTime = c.getTime();
         String nextFreeTime = "";
@@ -104,7 +107,7 @@ public class CalendarClient
             {
                 if (previousMeetingDateEnd.compareTo(meeting.getStartDate()) < 0)
                 {
-                    nextFreeTime = previousMeetingDateEnd.toString();
+                    nextFreeTime = formatter.format(previousMeetingDateEnd);
                     break;
                 }
                 if (previousMeetingDateEnd.compareTo(meeting.getEndDate()) < 0)
@@ -114,7 +117,7 @@ public class CalendarClient
             }
             if (nextFreeTime == "")
             {
-                nextFreeTime = previousMeetingDateEnd.toString();
+                nextFreeTime = formatter.format(previousMeetingDateEnd);
             }
         }
 
